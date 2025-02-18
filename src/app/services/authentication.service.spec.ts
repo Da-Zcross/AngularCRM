@@ -19,7 +19,7 @@ describe('AuthenticationService', () => {
   });
 
   it('should authenticate user with credentials', () => {
-    const testLogin = 'daz@gmail.com';
+    const testLogin = 'auth@gmail.com';
     const testPassword = 'password123';
 
     const result = service.authentUser(testLogin, testPassword);
@@ -27,7 +27,7 @@ describe('AuthenticationService', () => {
     expect(result).toBeDefined();
     expect(result.userId).toBe(1);
     expect(result.login).toBe(testLogin);
-    expect(result.lastname).toBe('Dassise');
-    expect(result.firstname).toBe('Versace');
+    expect(result.lastname).toBe('Jean');
+    expect(result.firstname).toBe('Luc');
   });
 });

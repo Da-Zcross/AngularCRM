@@ -20,8 +20,8 @@ export class AuthenticationService {
     return {
       userId: 1,
       login: login,
-      lastname: "Dassise",
-      firstname: "Versace",
+      lastname: "Jean",
+      firstname: "Luc",
     };
   }
 }
