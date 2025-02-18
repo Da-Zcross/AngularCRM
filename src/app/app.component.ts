@@ -1,12 +1,27 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { LoginComponent } from './login/login.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { DummyComponent } from './component/dummy/dummy.component';
 
 @Component({
   selector: 'crm-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  standalone: true,
+  imports: [
+    LoginComponent,
+    MatToolbarModule,
+    DummyComponent
+  ],
+  templateUrl: './app.component.html'
 })
 export class AppComponent {
-  title = 'AngularCRM';
+  title = 'Connexion CRM';
+
+  onClicked(event: any) {
+    console.log('Button clicked!', event);
+  }
 }
+
+
+
+
+
