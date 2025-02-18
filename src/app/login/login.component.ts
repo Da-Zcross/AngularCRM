@@ -4,8 +4,10 @@ import { isPlatformBrowser } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { Router } from '@angular/router';
 import { HelpComponent } from '../component/help/help.component';
 import { AuthenticationService } from '../services/authentication.service';
+import { DummyComponent } from '../component/dummy/dummy.component';
 
 // Fonction de validation personnalisée pour le mot de passe
 function checkPassword(c: AbstractControl): ValidationErrors | null {
@@ -25,9 +27,11 @@ function checkPassword(c: AbstractControl): ValidationErrors | null {
     MatInputModule,
     MatButtonModule,
     MatFormFieldModule,
-    HelpComponent
-],
-  templateUrl: './login.component.html'
+    HelpComponent,
+    DummyComponent
+  ],
+  templateUrl: './login.component.html',
+  styleUrl: './login.component.css'
 })
 export class LoginComponent {
   isBrowser: boolean;
@@ -40,7 +44,8 @@ export class LoginComponent {
   constructor(
     @Inject(PLATFORM_ID) platformId: Object,
     private fb: FormBuilder,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private router: Router
   ) {
     this.isBrowser = isPlatformBrowser(platformId);
     this.createForm();
@@ -94,12 +99,15 @@ export class LoginComponent {
         this.loginForm.value.password
       );
 
-      console.log('Résultat authentification:', result);
-
-      this.formMessage = {
-        text: 'Connexion réussie !',
-        type: 'success'
-      };
+      if (result) {
+        console.log('Authentification réussie:', result);
+        this.formMessage = {
+          text: 'Connexion réussie !',
+          type: 'success'
+        };
+        // Navigation vers la page d'accueil
+        this.router.navigateByUrl('/home');
+      }
     } else {
       let errors = [];
 
@@ -134,5 +142,9 @@ export class LoginComponent {
       text: '',
       type: ''
     };
+  }
+
+  onDummyClicked(event: any) {
+    console.log('Dummy button clicked:', event);
   }
 }

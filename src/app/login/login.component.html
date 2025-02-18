@@ -209,5 +209,10 @@ font-size: 12px;
         </button>
       </p>
     </form>
+
+    <!-- Ajout du composant Dummy -->
+    <div class="dummy-wrapper">
+      <crm-dummy [label]="'Cliquer ici'" (clicked)="onDummyClicked($event)"></crm-dummy>
+    </div>
   </div>
 </div>

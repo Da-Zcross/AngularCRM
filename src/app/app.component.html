@@ -31,9 +31,31 @@
     letter-spacing: 0.5px;
   }
 
-  .toolbar-text {
-    font-size: 0.9rem;
-    opacity: 0.9;
+  .mat-icon {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .is-active .mat-icon {
+    color: #ffd700;
+    transform: scale(1.2);
+    transition: all 0.3s ease;
+  }
+
+  .mat-icon-button {
+    margin: 0 8px;
+    transition: all 0.3s ease;
+  }
+
+  .mat-icon-button:hover {
+    background-color: #3f51b5;
+    transform: scale(1.1);
+  }
+
+  .mat-icon-button:hover .mat-icon {
+    color: #ffffff;
   }
 
   .content-wrapper {
@@ -54,11 +76,6 @@
     max-width: 400px;
   }
 
-  .dummy-wrapper {
-    padding: 1rem;
-    text-align: center;
-  }
-
   @media (max-width: 768px) {
     .toolbar {
       height: 56px;
@@ -74,23 +91,44 @@
       gap: 2rem;
       margin-top: 2rem;
     }
+
+    .mat-icon {
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+    }
   }
 </style>
 
 <div class="app-container">
-  <mat-toolbar class="toolbar">
+  <mat-toolbar color="primary" class="toolbar">
     <span class="toolbar-brand">AngularCRM</span>
     <span class="fill-remaining-space"></span>
-    <span class="toolbar-text">Right Aligned Text</span>
+    <span>
+      <a
+        mat-icon-button
+        matTooltip="Accueil"
+        [routerLink]="'/home'"
+        routerLinkActive="is-active"
+      >
+        <mat-icon>home</mat-icon>
+      </a>
+    </span>
+    <span>
+      <a
+        mat-icon-button
+        matTooltip="Connexion"
+        routerLink="/login"
+        routerLinkActive="is-active"
+      >
+        <mat-icon>person</mat-icon>
+      </a>
+    </span>
   </mat-toolbar>
 
   <div class="content-wrapper">
     <div class="login-wrapper">
-      <crm-login></crm-login>
-    </div>
-
-    <div class="dummy-wrapper">
-      <crm-dummy [label]="'Cliquer ici'" (clicked)="onClicked($event)"></crm-dummy>
+      <router-outlet></router-outlet>
     </div>
   </div>
 </div>

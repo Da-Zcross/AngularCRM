@@ -1,0 +1,32 @@
+<h1>Bienvenue sur la page d'accueil</h1>
+
+<div class="resources-list">
+  <div class="resource-item">
+    <h3>Ressource exemple</h3>
+    <a [routerLink]="['/resources', '1']" class="view-details">
+      Voir les détails
+    </a>
+  </div>
+</div>
+
+<style>
+  .resources-list {
+    margin: 20px;
+  }
+
+  .resource-item {
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+
+  .view-details {
+    color: #3f51b5;
+    text-decoration: none;
+  }
+
+  .view-details:hover {
+    text-decoration: underline;
+  }
+</style>

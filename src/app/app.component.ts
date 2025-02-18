@@ -1,24 +1,34 @@
 import { Component } from '@angular/core';
-import { LoginComponent } from './login/login.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { DummyComponent } from './component/dummy/dummy.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'crm-root',
   standalone: true,
   imports: [
-    LoginComponent,
     MatToolbarModule,
-    DummyComponent
+    MatIconModule,
+    MatButtonModule,
+    MatTooltipModule,
+    RouterOutlet,
+    RouterLink,
+    RouterLinkActive
   ],
-  templateUrl: './app.component.html'
+  templateUrl: './app.component.html',
+  styles: [`
+    /* Style pour mettre en évidence le lien actif */
+    .is-active {
+      .mat-icon {
+        color: orange;
+      }
+    }
+  `]
 })
 export class AppComponent {
   title = 'Connexion CRM';
-
-  onClicked(event: any) {
-    console.log('Button clicked!', event);
-  }
 }
 
 
