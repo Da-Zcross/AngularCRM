@@ -4,6 +4,7 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { HelpComponent } from '../component/help/help.component';
 
 // Fonction de validation personnalisée pour le mot de passe
 function checkPassword(c: AbstractControl): ValidationErrors | null {
@@ -23,7 +24,8 @@ function checkPassword(c: AbstractControl): ValidationErrors | null {
     CommonModule,
     MatInputModule,
     MatButtonModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    HelpComponent
   ],
   templateUrl: './login.component.html'
 })

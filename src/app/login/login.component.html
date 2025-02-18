@@ -149,13 +149,13 @@
   }
 </style>
 
-<!-- Structure du formulaire de connexion -->
+<!-- Container principal du formulaire -->
 <div class="login-container">
   <div class="login-card">
-    <!-- Titre du formulaire -->
+    <!-- En-tête du formulaire -->
     <h2>Connexion</h2>
 
-    <!-- Message de succès ou d'erreur -->
+    <!-- Zone de message (succès ou erreur) -->
     <div *ngIf="formMessage.text"
          class="message"
          [class.success]="formMessage.type === 'success'"
@@ -163,34 +163,44 @@
       {{ formMessage.text }}
     </div>
 
-    <!-- Formulaire avec validation réactive -->
+    <!-- Formulaire de connexion avec validation réactive -->
     <form id="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <!-- Champ Email -->
       <p>
         <mat-form-field>
-          <mat-label for="login">Username</mat-label>
+          <mat-label for="login">Identifiant</mat-label>
           <input matInput id="login" type="text" formControlName="login" />
-          <mat-error *ngIf="loginForm.get('login')?.errors?.['required']">
-            L'identifiant est requis
-          </mat-error>
-          <mat-error *ngIf="loginForm.get('login')?.errors?.['email']">
-            Format d'email invalide
-          </mat-error>
         </mat-form-field>
+        <!-- Composant d'aide pour les messages d'erreur -->
+        <crm-help
+          [field]="loginForm.controls['login']"
+          [errorMessages]="{
+            required: 'Entrez votre login',
+            minlength: 'Le login doit avoir un minimum de 3 caractères.',
+            email: 'Format d\'email invalide'
+          }"
+        >
+        </crm-help>
       </p>
 
+      <!-- Champ Mot de passe -->
       <p>
         <mat-form-field>
-          <mat-label for="password">Password</mat-label>
+          <mat-label for="password">Mot de passe</mat-label>
           <input matInput id="password" type="password" formControlName="password" />
-          <mat-error *ngIf="loginForm.get('password')?.errors?.['required']">
-            Le mot de passe est requis
-          </mat-error>
-          <mat-error *ngIf="loginForm.get('password')?.errors?.['minlength']">
-            Le mot de passe doit contenir au moins 5 caractères
-          </mat-error>
         </mat-form-field>
+        <!-- Composant d'aide pour les messages d'erreur -->
+        <crm-help
+          [field]="loginForm.controls['password']"
+          [errorMessages]="{
+            required: 'Entrez votre mot de passe',
+            minlength: 'Le mot de passe doit contenir au moins 5 caractères'
+          }"
+        >
+        </crm-help>
       </p>
 
+      <!-- Bouton de soumission -->
       <p>
         <button mat-button type="submit" [disabled]="!loginForm.valid" color="primary">
           Validate
