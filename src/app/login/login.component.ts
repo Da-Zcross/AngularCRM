@@ -5,6 +5,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { HelpComponent } from '../component/help/help.component';
+import { AuthenticationService } from '../services/authentication.service';
 
 // Fonction de validation personnalisée pour le mot de passe
 function checkPassword(c: AbstractControl): ValidationErrors | null {
@@ -38,7 +39,8 @@ export class LoginComponent {
 
   constructor(
     @Inject(PLATFORM_ID) platformId: Object,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private authService: AuthenticationService
   ) {
     this.isBrowser = isPlatformBrowser(platformId);
     this.createForm();
@@ -86,7 +88,14 @@ export class LoginComponent {
     });
 
     if (this.loginForm.valid && this.isFormSubmittable()) {
-      console.log('Formulaire valide, données:', this.loginForm.value);
+      // Utilisation du service d'authentification
+      const result = this.authService.authentUser(
+        this.loginForm.value.login,
+        this.loginForm.value.password
+      );
+
+      console.log('Résultat authentification:', result);
+
       this.formMessage = {
         text: 'Connexion réussie !',
         type: 'success'
