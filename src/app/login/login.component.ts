@@ -1,6 +1,6 @@
 import { Component, PLATFORM_ID, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -21,12 +21,11 @@ function checkPassword(c: AbstractControl): ValidationErrors | null {
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    CommonModule,
     MatInputModule,
     MatButtonModule,
     MatFormFieldModule,
     HelpComponent
-  ],
+],
   templateUrl: './login.component.html'
 })
 export class LoginComponent {

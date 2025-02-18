@@ -5,19 +5,23 @@
 
 import { Component, Input } from "@angular/core";
 import { AbstractControl } from "@angular/forms";  // Pour la gestion des contrôles de formulaire
-import { CommonModule } from "@angular/common";    // Pour les directives *ngIf et *ngFor
+    // Pour les directives *ngIf et *ngFor
 
 @Component({
   selector: "crm-help",      // Utilisé comme <crm-help> dans les templates
   standalone: true,          // Pas besoin de NgModule
-  imports: [CommonModule],   // Nécessaire pour *ngIf et *ngFor
+  imports: [],   // Nécessaire pour *ngIf et *ngFor
   template: `
     <!-- Conteneur des messages d'erreur - visible uniquement si le champ a une erreur -->
-    <span class="help-block" *ngIf="isError()">
-      <!-- Affiche chaque message d'erreur dans une boucle -->
-      <span *ngFor="let msg of errors">{{msg}}</span>
-    </span>
-  `,
+    @if (isError()) {
+      <span class="help-block">
+        <!-- Affiche chaque message d'erreur dans une boucle -->
+        @for (msg of errors; track msg) {
+          <span>{{msg}}</span>
+        }
+      </span>
+    }
+    `,
   styles: [`
     /* Style pour les messages d'erreur */
     .help-block {

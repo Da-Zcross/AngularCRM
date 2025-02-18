@@ -2,151 +2,151 @@
 <style>
   /* Container principal - Centre le formulaire verticalement et horizontalement */
   .login-container {
-    margin-top: 100px;
-    display: flex;
-    justify-content: center;    /* Centre horizontalement */
-    align-items: center;        /* Centre verticalement */
-    background-color: #f5f5f5;  /* Fond gris clair */
-  }
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;    /* Centre horizontalement */
+  align-items: center;        /* Centre verticalement */
+  background-color: #f5f5f5;  /* Fond gris clair */
+}
 
-  /* Carte du formulaire - Contient le formulaire avec un effet d'élévation */
-  .login-card {
-    background: white;
-    padding: 2rem;
-    border-radius: 10px;                    /* Coins arrondis */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre portée */
-    width: 100%;
-    max-width: 400px;                       /* Largeur maximale */
-  }
+/* Carte du formulaire - Contient le formulaire avec un effet d'élévation */
+.login-card {
+background: white;
+padding: 2rem;
+border-radius: 10px;                    /* Coins arrondis */
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre portée */
+width: 100%;
+max-width: 400px;                       /* Largeur maximale */
+}
 
-  /* Groupe de formulaire - Espace entre les champs */
-  .form-group {
-    margin-bottom: 1.5rem;
-  }
+/* Groupe de formulaire - Espace entre les champs */
+.form-group {
+margin-bottom: 1.5rem;
+}
 
-  /* Style des labels */
-  label {
-    display: block;
-    margin-bottom: 0.5rem;
-    color: #333;
-    font-weight: 500;
-  }
+/* Style des labels */
+label {
+display: block;
+margin-bottom: 0.5rem;
+color: #333;
+font-weight: 500;
+}
 
-  /* Style des champs de saisie */
-  input {
-    width: 100%;
-    padding: 0.75rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 1rem;
-    transition: border-color 0.2s;  /* Animation de la bordure */
-  }
+/* Style des champs de saisie */
+input {
+width: 100%;
+padding: 0.75rem;
+border: 1px solid #ddd;
+border-radius: 4px;
+font-size: 1rem;
+transition: border-color 0.2s;  /* Animation de la bordure */
+}
 
-  /* Style au focus des champs */
-  input:focus {
-    outline: none;
-    border-color: #4a90e2;
-    box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
-  }
+/* Style au focus des champs */
+input:focus {
+outline: none;
+border-color: #4a90e2;
+box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+}
 
-  /* Style du bouton */
-  button {
-    width: 100%;
-    padding: 0.75rem;
-    background-color: #4a90e2;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.2s;
-  }
+/* Style du bouton */
+button {
+width: 100%;
+padding: 0.75rem;
+background-color: #4a90e2;
+color: white;
+border: none;
+border-radius: 4px;
+font-size: 1rem;
+cursor: pointer;
+transition: background-color 0.2s;
+}
 
-  /* Effet hover sur le bouton actif */
-  button:hover:not(:disabled) {
-    background-color: #357abd;
-  }
+/* Effet hover sur le bouton actif */
+button:hover:not(:disabled) {
+background-color: #357abd;
+}
 
-  /* Style du bouton désactivé */
-  button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-  }
+/* Style du bouton désactivé */
+button:disabled {
+background-color: #ccc;
+cursor: not-allowed;
+}
 
-  /* Style des messages d'erreur */
-  .error-message {
-    color: #dc3545;
-    font-size: 0.875rem;
-    margin-top: 0.25rem;
-    display: block;
-  }
+/* Style des messages d'erreur */
+.error-message {
+color: #dc3545;
+font-size: 0.875rem;
+margin-top: 0.25rem;
+display: block;
+}
 
-  /* Style du titre */
-  h2 {
-    text-align: center;
-    color: #333;
-    margin-bottom: 1.5rem;
-  }
+/* Style du titre */
+h2 {
+text-align: center;
+color: #333;
+margin-bottom: 1.5rem;
+}
 
-  .message {
-    padding: 1rem;
-    margin: 1rem 0;
-    border-radius: 4px;
-    text-align: left;
-  }
+.message {
+padding: 1rem;
+margin: 1rem 0;
+border-radius: 4px;
+text-align: left;
+}
 
-  .message.success {
-    background-color: #d4edda;
-    color: #155724;
-    border: 1px solid #c3e6cb;
-  }
+.message.success {
+background-color: #d4edda;
+color: #155724;
+border: 1px solid #c3e6cb;
+}
 
-  .message.error {
-    background-color: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
-    white-space: pre-line;
-  }
+.message.error {
+background-color: #f8d7da;
+color: #721c24;
+border: 1px solid #f5c6cb;
+white-space: pre-line;
+}
 
-  .message.error ul {
-    margin: 0;
-    padding-left: 20px;
-  }
+.message.error ul {
+margin: 0;
+padding-left: 20px;
+}
 
-  .form-status {
-    text-align: center;
-    margin-top: 1rem;
-    color: #721c24;
-  }
+.form-status {
+text-align: center;
+margin-top: 1rem;
+color: #721c24;
+}
 
-  input.ng-touched.ng-invalid {
-    border-color: #dc3545;
-  }
+input.ng-touched.ng-invalid {
+border-color: #dc3545;
+}
 
-  /* Ajout des styles pour Material */
-  .full-width {
-    width: 100%;
-  }
+/* Ajout des styles pour Material */
+.full-width {
+width: 100%;
+}
 
-  mat-form-field {
-    margin-bottom: 1rem;
-  }
+mat-form-field {
+margin-bottom: 1rem;
+}
 
-  /* Ajustement des marges et paddings */
-  .login-card {
-    padding: 2rem;
-  }
+/* Ajustement des marges et paddings */
+.login-card {
+padding: 2rem;
+}
 
-  /* Style du bouton Material */
-  button[mat-raised-button] {
-    height: 48px;
-    font-size: 16px;
-  }
+/* Style du bouton Material */
+button[mat-raised-button] {
+height: 48px;
+font-size: 16px;
+}
 
-  /* Ajustement des messages d'erreur Material */
-  mat-error {
-    font-size: 12px;
-  }
+/* Ajustement des messages d'erreur Material */
+mat-error {
+font-size: 12px;
+}
 </style>
 
 <!-- Container principal du formulaire -->
@@ -156,12 +156,14 @@
     <h2>Connexion</h2>
 
     <!-- Zone de message (succès ou erreur) -->
-    <div *ngIf="formMessage.text"
-         class="message"
-         [class.success]="formMessage.type === 'success'"
-         [class.error]="formMessage.type === 'error'">
-      {{ formMessage.text }}
-    </div>
+    @if (formMessage.text) {
+      <div
+        class="message"
+        [class.success]="formMessage.type === 'success'"
+        [class.error]="formMessage.type === 'error'">
+        {{ formMessage.text }}
+      </div>
+    }
 
     <!-- Formulaire de connexion avec validation réactive -->
     <form id="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
@@ -179,7 +181,7 @@
             minlength: 'Le login doit avoir un minimum de 3 caractères.',
             email: 'Format d\'email invalide'
           }"
-        >
+          >
         </crm-help>
       </p>
 
@@ -196,7 +198,7 @@
             required: 'Entrez votre mot de passe',
             minlength: 'Le mot de passe doit contenir au moins 5 caractères'
           }"
-        >
+          >
         </crm-help>
       </p>
 
