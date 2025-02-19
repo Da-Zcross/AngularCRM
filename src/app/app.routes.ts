@@ -4,6 +4,11 @@ import { LoginComponent } from './login/login.component';
 import { ResourceFicheComponent } from './resources/resource-fiche/resource-fiche.component';
 import { AuthenticationGuard } from './guards/authentication.guard';
 
+import { ConsumerListComponent } from './consumer/consumer-list.component';
+
+
+
+
 export const routes: Routes = [
   {
     path: '',
@@ -25,8 +30,21 @@ export const routes: Routes = [
     canActivate: [AuthenticationGuard]
   },
   {
+    path: 'consumers',
+   children: [
+    {
+      path: '',
+      component: ConsumerListComponent,
+      title: 'Liste des clients'
+    }
+  ]},
+
+
+  {
     path: '**',
-    redirectTo: 'home',
-    pathMatch: 'full'
-  }
+    redirectTo: 'login'
+  },
+
+
+
 ];

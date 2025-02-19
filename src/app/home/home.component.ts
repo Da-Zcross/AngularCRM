@@ -7,11 +7,13 @@ import { AuthenticationService } from '../services/authentication.service';
 import { User } from '../models/user';
 import { CommonModule, AsyncPipe } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
+import { FormsModule } from '@angular/forms';
+import { PhonePipe } from '../common/phone.pipe';
 
 @Component({
   selector: 'crm-home',
   standalone: true,
-  imports: [RouterLink, CommonModule, MatButtonModule, AsyncPipe],
+  imports: [RouterLink, CommonModule, MatButtonModule, AsyncPipe, FormsModule, PhonePipe],
   template: `
     <div class="home-container">
       <!-- En-tête avec info utilisateur -->
@@ -26,10 +28,45 @@ import { MatButtonModule } from '@angular/material/button';
 
       <h1>Liste des utilisateurs</h1>
 
-      <!-- Bouton de test Observable -->
-      <button mat-raised-button color="primary" (click)="onClick()">
-        Test Observable
-      </button>
+      <!-- Section de test Observable -->
+      <div class="observable-test">
+        <button mat-raised-button color="primary" (click)="onClick()">
+          Test Observable
+        </button>
+
+        <!-- Affichage des résultats de l'Observable -->
+        @if (observableResults.length > 0) {
+          <div class="observable-results">
+            <h3>Résultats de l'Observable :</h3>
+            <ul>
+              @for (result of observableResults; track result) {
+                <li>Valeur reçue : {{ result }}</li>
+              }
+            </ul>
+            @if (isCompleted) {
+              <p class="completed">Observable terminé !</p>
+            }
+          </div>
+        }
+      </div>
+
+      <!-- Test du pipe téléphone -->
+      <div class="phone-test">
+        <h3>Test du pipe téléphone</h3>
+        <div class="phone-input">
+          <label for="phone">Numéro de téléphone :</label>
+          <input
+            id="phone"
+            type="text"
+            [ngModel]="phone | phone"
+            maxlength="14"
+            (ngModelChange)="phone=$event"
+            placeholder="Entrez un numéro"
+          />
+        </div>
+        <p>Valeur brute : {{ phone }}</p>
+        <p>Valeur formatée : {{ phone | phone }}</p>
+      </div>
 
       <!-- Liste des utilisateurs avec pipe async -->
       @if (users$ | async; as users) {
@@ -50,6 +87,7 @@ import { MatButtonModule } from '@angular/material/button';
       }
 
       <div class="navigation">
+        <a routerLink="/consumers" class="nav-link">Liste des clients</a>
         <a routerLink="/login" class="nav-link">Retour à la connexion</a>
       </div>
     </div>
@@ -124,6 +162,60 @@ import { MatButtonModule } from '@angular/material/button';
         background: #ffebee;
         border-radius: 4px;
       }
+      .observable-test {
+        margin: 20px 0;
+        padding: 15px;
+        background: #f8f9fa;
+        border-radius: 4px;
+      }
+      .observable-results {
+        margin-top: 15px;
+        padding: 10px;
+        background: #e3f2fd;
+        border-radius: 4px;
+      }
+      .observable-results h3 {
+        margin-top: 0;
+        color: #1976d2;
+      }
+      .observable-results ul {
+        list-style: none;
+        padding: 0;
+      }
+      .observable-results li {
+        padding: 5px 0;
+        color: #2196f3;
+      }
+      .completed {
+        color: #4caf50;
+        font-weight: bold;
+      }
+      .phone-test {
+        margin: 20px 0;
+        padding: 15px;
+        background: #f0f4f8;
+        border-radius: 4px;
+      }
+      .phone-input {
+        margin: 10px 0;
+      }
+      .phone-input label {
+        display: block;
+        margin-bottom: 5px;
+        color: #333;
+      }
+      .phone-input input {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+        width: 200px;
+      }
+      .phone-input input:focus {
+        outline: none;
+        border-color: #2196f3;
+        box-shadow: 0 0 0 2px rgba(33,150,243,0.2);
+      }
     </style>
   `
 })
@@ -136,6 +228,13 @@ export class HomeComponent implements OnDestroy {
 
   // Utilisateur actuellement connecté
   currentUser?: User;
+
+  // Stockage des résultats de l'Observable
+  observableResults: number[] = [];
+  isCompleted = false;
+
+  // Numéro de téléphone pour le test du pipe
+  public phone = '0102030405';
 
   constructor(
     private dataService: DataService,
@@ -162,17 +261,22 @@ export class HomeComponent implements OnDestroy {
    * Ajoute une nouvelle souscription à l'Observable de démonstration
    */
   onClick(): void {
-    // Ajout de la souscription au tableau pour nettoyage ultérieur
+    // Réinitialisation des résultats
+    this.observableResults = [];
+    this.isCompleted = false;
+
     this.subs.push(
       this.demoObs.getObservable().subscribe({
         next: (result: number) => {
           console.log('Résultat reçu:', result);
+          this.observableResults.push(result);
         },
         error: (error) => {
           console.error('Erreur dans l\'Observable:', error);
         },
         complete: () => {
           console.log('Observable terminé');
+          this.isCompleted = true;
         }
       })
     );
