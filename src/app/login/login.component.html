@@ -147,6 +147,12 @@ font-size: 16px;
 mat-error {
 font-size: 12px;
 }
+
+.dummy-wrapper {
+text-align: center;
+margin-top: 20px;
+padding: 10px;
+}
 </style>
 
 <!-- Container principal du formulaire -->
@@ -212,7 +218,10 @@ font-size: 12px;
 
     <!-- Ajout du composant Dummy -->
     <div class="dummy-wrapper">
-      <crm-dummy [label]="'Cliquer ici'" (clicked)="onDummyClicked($event)"></crm-dummy>
+      <crm-dummy
+        [label]="'Cliquer ici'"
+        (clicked)="onDummyClicked($event)">
+      </crm-dummy>
     </div>
   </div>
 </div>

@@ -1,6 +1,8 @@
 import { Injectable } from "@angular/core";
 import { User } from "../models/user";
 
+const USER_STORAGE_KEY = "angular-crm.user";
+
 /**
  * Service d'authentification pour gérer l'authentification des utilisateurs
  */
@@ -8,10 +10,22 @@ import { User } from "../models/user";
   providedIn: "root",
 })
 export class AuthenticationService {
-  private authenticated = false;
-  private currentUser: User | null = null;
+  private currentUser?: User;
 
-  constructor() {}
+  constructor() {
+    // Vérifier si un utilisateur est déjà connecté
+    const storedUser = sessionStorage.getItem(USER_STORAGE_KEY);
+    if (storedUser !== null) {
+      this.currentUser = JSON.parse(storedUser);
+    }
+  }
+
+  /**
+   * Vérifie si l'utilisateur est authentifié
+   */
+  public get authenticated(): boolean {
+    return !!this.currentUser;
+  }
 
   /**
    * Authentifie un utilisateur avec son login et mot de passe
@@ -19,42 +33,31 @@ export class AuthenticationService {
    * @param password Mot de passe de l'utilisateur
    * @returns Objet contenant les informations de l'utilisateur
    */
-  authentUser(login: string, password: string): User | null {
-    // TODO: À remplacer par une vraie logique d'authentification
-    const user: User = {
+  authentUser(login: string, password: string): User {
+    this.currentUser = {
       id: 1,
       login: login,
-      lastname: "Jean",
-      firstname: "Luc",
+      lastname: "Doe",
+      firstname: "John",
     };
 
-    // Stocker les informations de l'utilisateur
-    this.authenticated = true;
-    this.currentUser = user;
-    return user;
+    // Sauvegarder l'utilisateur dans la session
+    sessionStorage.setItem(USER_STORAGE_KEY, JSON.stringify(this.currentUser));
+    return this.currentUser;
   }
 
   /**
-   * Vérifie si l'utilisateur est authentifié
-   * @returns boolean indiquant si l'utilisateur est authentifié
+   * Déconnecte l'utilisateur et nettoie la session
    */
-  isAuthenticated(): boolean {
-    return this.authenticated;
-  }
-
-  /**
-   * Déconnecte l'utilisateur
-   */
-  logout(): void {
-    this.authenticated = false;
-    this.currentUser = null;
+  disconnect(): void {
+    delete this.currentUser;
+    sessionStorage.removeItem(USER_STORAGE_KEY);
   }
 
   /**
    * Récupère les informations de l'utilisateur connecté
-   * @returns Informations de l'utilisateur ou null si non connecté
    */
-  getCurrentUser(): User | null {
+  getCurrentUser(): User | undefined {
     return this.currentUser;
   }
 }

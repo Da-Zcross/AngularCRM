@@ -13,6 +13,9 @@ describe('AuthenticationService', () => {
       providers: [AuthenticationService]
     });
     service = TestBed.inject(AuthenticationService);
+
+    // Nettoyer le sessionStorage avant chaque test
+    sessionStorage.clear();
   });
 
   it('should be created', () => {
@@ -25,31 +28,49 @@ describe('AuthenticationService', () => {
 
     const result = service.authentUser(testLogin, testPassword);
 
-    // Vérifier que le résultat n'est pas null
     expect(result).toBeTruthy();
-
-    // Si le résultat n'est pas null, vérifier les propriétés
     if (result) {
       expect(result.id).toBe(1);
       expect(result.login).toBe(testLogin);
-      expect(result.lastname).toBe('Jean');
-      expect(result.firstname).toBe('Luc');
+      expect(result.lastname).toBe('Doe');
+      expect(result.firstname).toBe('John');
     }
   });
 
   it('should handle authentication state', () => {
     // Au départ, l'utilisateur n'est pas authentifié
-    expect(service.isAuthenticated()).toBeFalse();
-    expect(service.getCurrentUser()).toBeNull();
+    expect(service.authenticated).toBeFalse();
+    expect(service.getCurrentUser()).toBeUndefined();
 
     // Après authentification
     const result = service.authentUser('test@test.com', 'password');
-    expect(service.isAuthenticated()).toBeTrue();
+    expect(service.authenticated).toBeTrue();
     expect(service.getCurrentUser()).toEqual(result);
 
     // Après déconnexion
-    service.logout();
-    expect(service.isAuthenticated()).toBeFalse();
-    expect(service.getCurrentUser()).toBeNull();
+    service.disconnect();
+    expect(service.authenticated).toBeFalse();
+    expect(service.getCurrentUser()).toBeUndefined();
+  });
+
+  it('should persist user in session storage', () => {
+    const testUser = service.authentUser('test@test.com', 'password');
+
+    // Vérifier que l'utilisateur est stocké dans la session
+    const storedUser = sessionStorage.getItem('angular-crm.user');
+    expect(storedUser).toBeTruthy();
+    expect(JSON.parse(storedUser!)).toEqual(testUser);
+  });
+
+  it('should clear session on disconnect', () => {
+    // D'abord connecter un utilisateur
+    service.authentUser('test@test.com', 'password');
+
+    // Puis le déconnecter
+    service.disconnect();
+
+    // Vérifier que la session est vide
+    expect(sessionStorage.getItem('angular-crm.user')).toBeNull();
+    expect(service.authenticated).toBeFalse();
   });
 });

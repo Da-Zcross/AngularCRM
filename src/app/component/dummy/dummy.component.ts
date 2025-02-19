@@ -1,30 +1,28 @@
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  selector: "crm-dummy",
+  selector: 'crm-dummy',
   standalone: true,
+  imports: [MatButtonModule],
   template: `
-    <p>
-      <span>{{label}}</span>
-      <button (click)="onClicked($event)">Click Me</button>
-    </p>
+    <button mat-raised-button color="accent" (click)="onClick()">
+      {{ label }}
+    </button>
   `,
   styles: [`
-    span {
-      color: green;
+    button {
+      margin: 10px;
+      padding: 8px 16px;
+      font-size: 16px;
     }
   `]
 })
 export class DummyComponent {
-  @Input()
-  public label = "";
+  @Input() label: string = 'Cliquer ici';
+  @Output() clicked = new EventEmitter<string>();
 
-  @Output()
-  public clicked = new EventEmitter<string>();
-
-  constructor() {}
-
-  onClicked($event: any): void {
-    this.clicked.emit(this.label + "a random string");
+  onClick() {
+    this.clicked.emit(`Le bouton ${this.label} a été cliqué !`);
   }
 }

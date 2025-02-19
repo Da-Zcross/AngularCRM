@@ -144,7 +144,11 @@ export class LoginComponent {
     };
   }
 
-  onDummyClicked(event: any) {
-    console.log('Dummy button clicked:', event);
+  onDummyClicked(message: string) {
+    console.log(message);
+    this.formMessage = {
+      text: message,
+      type: 'success'
+    };
   }
 }
