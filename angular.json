@@ -58,6 +58,9 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "proxyConfig": "proxy.conf.json"
+          },
           "configurations": {
             "production": {
               "buildTarget": "AngularCRM:build:production"
@@ -98,4 +101,6 @@
   "cli": {
     "analytics": "5a611d4e-8f68-41c6-a993-786c011eeebe"
   }
+
+
 }
