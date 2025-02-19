@@ -5,6 +5,9 @@ import { ResourceFicheComponent } from './resources/resource-fiche/resource-fich
 import { AuthenticationGuard } from './guards/authentication.guard';
 
 import { ConsumerListComponent } from './consumer/consumer-list.component';
+import { ConsumerEditComponent } from './consumer/consumer-edit.component';
+
+
 
 
 
@@ -31,13 +34,14 @@ export const routes: Routes = [
   },
   {
     path: 'consumers',
-   children: [
-    {
-      path: '',
-      component: ConsumerListComponent,
-      title: 'Liste des clients'
-    }
-  ]},
+    children: [
+      { path: '', component: ConsumerListComponent },
+      { path: 'new', component: ConsumerEditComponent },
+      { path: ':id/edit', component: ConsumerEditComponent }
+    ]
+  },
+  { path: '', redirectTo: '/consumers', pathMatch: 'full' },
+  { path: '**', redirectTo: '/consumers' },
 
 
   {

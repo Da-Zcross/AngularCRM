@@ -15,8 +15,6 @@ export interface PaginatedResponse<T> {
   providedIn: 'root'
 })
 export class ConsumerService {
-  private apiUrl = 'http://localhost:3000';
-
   constructor(private http: HttpClient) {}
 
   getConsumers(page: number = 1, pageSize: number = 10, query: string = ''): Observable<PaginatedResponse<Consumer>> {
@@ -45,20 +43,28 @@ export class ConsumerService {
     );
   }
 
+  getConsumerById(id: number): Observable<Consumer> {
+    return this.http.get<Consumer>(`/api/consumers/${id}`);
+  }
+
   searchConsumers(query: string): Observable<Consumer[]> {
     const params = new HttpParams().set('q', query);
-    return this.http.get<Consumer[]>(`${this.apiUrl}/api/consumers`, { params });
+    return this.http.get<Consumer[]>(`/api/consumers`, { params });
   }
 
   addConsumer(consumer: Omit<Consumer, 'id'>): Observable<Consumer> {
-    return this.http.post<Consumer>(`${this.apiUrl}/api/consumers`, consumer);
+    return this.http.post<Consumer>(`/api/consumers`, consumer);
   }
 
   updateConsumer(id: number, consumer: Partial<Consumer>): Observable<Consumer> {
-    return this.http.put<Consumer>(`${this.apiUrl}/api/consumers/${id}`, consumer);
+    return this.http.put<Consumer>(`/api/consumers/${id}`, consumer);
   }
 
   deleteConsumer(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/api/consumers/${id}`);
+    return this.http.delete<void>(`/api/consumers/${id}`);
+  }
+
+  createConsumer(consumer: Omit<Consumer, 'id'>): Observable<Consumer> {
+    return this.http.post<Consumer>('/api/consumers', consumer);
   }
 }
